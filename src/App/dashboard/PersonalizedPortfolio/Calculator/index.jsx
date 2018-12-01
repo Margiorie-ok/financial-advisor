@@ -12,6 +12,77 @@ const styles = theme => ({
   }
 })
 
+const newLog = ({ transfer, from, to }) => {
+  return "Transfer " + transfer + "$ from " + from + " to " + to + ". \n"
+}
+
+const transferCharge = ({
+  givers,
+  receivers,
+  queueLess,
+  queueGreat,
+  totalAmount,
+  fullLog
+}) => {
+  fullLog.push(
+    newLog({
+      transfer: (queueLess[0].charge * totalAmount).toFixed(2),
+      from: givers[0].name,
+      to: receivers[0].name
+    })
+  )
+  queueGreat[0].charge = queueGreat[0].charge - queueLess.shift().charge
+  if (Math.abs(queueGreat[0].charge) < 1e-10) {
+    queueGreat.shift()
+  }
+}
+
+const balanceLog = ({ giversArray, receiversArray, totalAmount }) => {
+  let givers = giversArray
+  let receivers = receiversArray
+  let fullLog = []
+  while (givers.length > 0) {
+    if (givers[0].charge <= receivers[0].charge) {
+      transferCharge({
+        givers: givers,
+        receivers: receivers,
+        queueLess: givers,
+        queueGreat: receivers,
+        totalAmount: totalAmount,
+        fullLog: fullLog
+      })
+    } else {
+      transferCharge({
+        givers: givers,
+        receivers: receivers,
+        queueLess: receivers,
+        queueGreat: givers,
+        totalAmount: totalAmount,
+        fullLog: fullLog
+      })
+    }
+  }
+  return fullLog
+}
+
+const ascendingCharge = (a, b) => {
+  if (a.charge < b.charge) return -1
+  if (a.charge > b.charge) return 1
+  return 0
+}
+
+const descendingCharge = (b, a) => {
+  if (a.charge < b.charge) return -1
+  if (a.charge > b.charge) return 1
+  return 0
+}
+
+const ascendingSteps = (a, b) => {
+  if (a.steps.length < b.steps.length) return -1
+  if (a.steps.length > b.steps.length) return 1
+  return 0
+}
+
 class Calculator extends Component {
   constructor(props) {
     super(props)
@@ -22,51 +93,8 @@ class Calculator extends Component {
       this.calculate()
     }
   }
-
-  balance = (giversArray, receiversArray) => {
-    const { totalAmount } = this.props
-    let givers = giversArray
-    let receivers = receiversArray
-    let fullLog = []
-    while (givers.length > 0) {
-      if (givers[0].charge <= receivers[0].charge) {
-        const log =
-          this.state.stepsLog +
-          "Transfer " +
-          (givers[0].charge * totalAmount).toFixed(2) +
-          "$ from " +
-          givers[0].name +
-          " to " +
-          receivers[0].name +
-          ". \n"
-        fullLog.push(log)
-        receivers[0].charge = receivers[0].charge - givers.shift().charge
-
-        if (Math.abs(receivers[0].charge) < 1e-10) {
-          receivers.shift()
-        }
-      } else {
-        const log =
-          this.state.stepsLog +
-          "Transfer " +
-          (receivers[0].charge * totalAmount).toFixed(2) +
-          "$ from " +
-          givers[0].name +
-          " to " +
-          receivers[0].name +
-          ". \n"
-        fullLog.push(log)
-        givers[0].charge = givers[0].charge - receivers.shift().charge
-        if (Math.abs(givers[0].charge) < 1e-10) {
-          givers.shift()
-        }
-      }
-    }
-    this.setState({ stepsLog: fullLog })
-  }
-
   calculate = () => {
-    const { categorySettings } = this.props
+    const { categorySettings, totalAmount } = this.props
     const receivers = []
     const givers = []
     for (let i = 0; i < Object.keys(categorySettings).length; i++) {
@@ -85,7 +113,79 @@ class Calculator extends Component {
         })
       }
     }
-    this.balance(givers, receivers)
+
+    let criterias = []
+
+    criterias = [
+      ...criterias,
+      {
+        name: "random",
+        steps: balanceLog({
+          giversArray: JSON.parse(JSON.stringify(givers)),
+          receiversArray: JSON.parse(JSON.stringify(receivers)),
+          totalAmount: totalAmount
+        })
+      }
+    ]
+    givers.sort(ascendingCharge)
+    givers.sort(ascendingCharge)
+    criterias = [
+      ...criterias,
+      {
+        name: "both ascending",
+        steps: balanceLog({
+          giversArray: JSON.parse(JSON.stringify(givers)),
+          receiversArray: JSON.parse(JSON.stringify(receivers)),
+          totalAmount: totalAmount
+        })
+      }
+    ]
+    givers.sort(descendingCharge)
+    givers.sort(descendingCharge)
+    criterias = [
+      ...criterias,
+      {
+        name: "both descending",
+        steps: balanceLog({
+          giversArray: JSON.parse(JSON.stringify(givers)),
+          receiversArray: JSON.parse(JSON.stringify(receivers)),
+          totalAmount: totalAmount
+        })
+      }
+    ]
+    givers.sort(ascendingCharge)
+    criterias = [
+      ...criterias,
+      {
+        name: "ascending givers, descending receivers",
+        steps: balanceLog({
+          giversArray: JSON.parse(JSON.stringify(givers)),
+          receiversArray: JSON.parse(JSON.stringify(receivers)),
+          totalAmount: totalAmount
+        })
+      }
+    ]
+
+    givers.sort(descendingCharge)
+    receivers.sort(ascendingCharge)
+    criterias = [
+      ...criterias,
+      {
+        name: "descending givers, ascending receivers",
+        steps: balanceLog({
+          giversArray: JSON.parse(JSON.stringify(givers)),
+          receiversArray: JSON.parse(JSON.stringify(receivers)),
+          totalAmount: totalAmount
+        })
+      }
+    ]
+
+    criterias.sort(ascendingSteps)
+
+    this.setState({
+      criterias: criterias,
+      stepsLog: criterias[0].steps
+    })
   }
 
   render() {
@@ -95,8 +195,10 @@ class Calculator extends Component {
         <Typography variant="h5" component="h3">
           Recomended Steps
         </Typography>
-        {this.state.stepsLog.map(log => (
-          <Typography component="p">{log}</Typography>
+        {this.state.stepsLog.map((log, index) => (
+          <Typography component="p" key={"setp-label-" + index}>
+            {log}
+          </Typography>
         ))}
       </Paper>
     ) : null

@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { withRouter } from "react-router"
 import AppContainer from "../common/layout/AppContainer"
 import Grid from "@material-ui/core/Grid"
 import FormRow from "./FormRow"
@@ -37,17 +38,27 @@ class PersonalizedPortfolio extends Component {
     this.state = { recalculateProportions: false, calculate: false }
   }
   componentWillMount() {
-    const { preferences, setDesiredProportion, setCurrentAmount } = this.props
-    for (let i = 0; i < Object.keys(preferences).length; i++) {
-      const preference = preferences[Object.keys(preferences)[i]]
-      setDesiredProportion(
-        preference.investment_category,
-        preference.proportion
-      )
-      setCurrentAmount(
-        preference.investment_category,
-        preference.amount ? Number(preference.amount).toFixed(2) : 0
-      )
+    const {
+      riskPreference,
+      preferences,
+      setDesiredProportion,
+      setCurrentAmount,
+      history
+    } = this.props
+    if (!riskPreference) {
+      history.push("/")
+    } else {
+      for (let i = 0; i < Object.keys(preferences).length; i++) {
+        const preference = preferences[Object.keys(preferences)[i]]
+        setDesiredProportion(
+          preference.investment_category,
+          preference.proportion
+        )
+        // setCurrentAmount(
+        //   preference.investment_category,
+        //   preference.amount ? Number(preference.amount).toFixed(2) : 0
+        // )
+      }
     }
   }
 
@@ -90,8 +101,9 @@ class PersonalizedPortfolio extends Component {
   categoryRows = () => {
     const { categorySettings, totalAmount } = this.props
     const categoryRows = Object.keys(categorySettings).map((key, index) => (
-      <Grid item xs={12}>
+      <Grid item xs={12} key={"category-grid-" + index}>
         <FormRow
+          key={"category-row-" + index}
           category={key}
           name={categorySettings[key].name}
           onCategoryValueChange={this.onCategoryValueChange}
@@ -130,6 +142,7 @@ class PersonalizedPortfolio extends Component {
 
 const mapStateToProps = state => {
   return {
+    riskPreference: state.idealPortfolio.riskPreference,
     preferences:
       state.idealPortfolio.investmentSettingsByRiskPreference[
         state.idealPortfolio.riskPreference
@@ -146,6 +159,7 @@ const mapDispatchToProps = {
   setTotalAmount: setTotalAmountAction
 }
 export default compose(
+  withRouter,
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
 )(PersonalizedPortfolio)

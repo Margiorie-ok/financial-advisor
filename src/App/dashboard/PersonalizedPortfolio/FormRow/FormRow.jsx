@@ -8,7 +8,9 @@ import { compose } from "redux"
 const styles = theme => ({
   container: {
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    paddingLeft: "auto",
+    paddingRight: "auto"
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -36,11 +38,19 @@ class FormRow extends Component {
       categorySettings,
       newAmountValue
     } = this.props
-    console.log(typeof newAmountValue)
     const amountValue =
-      typeof categorySettings[category].amount !== "undefined"
+      typeof categorySettings[category].amount !== "undefined" &&
+      !isNaN(categorySettings[category].amount)
         ? categorySettings[category].amount
         : 0
+    const differenceValue = !isNaN(newAmountValue - amountValue)
+      ? newAmountValue - amountValue > 0
+        ? "+" + (newAmountValue - amountValue).toFixed(2)
+        : (newAmountValue - amountValue).toFixed(2)
+      : "-"
+    const differenceHelper = !isNaN(newAmountValue - amountValue)
+      ? newAmountValue - amountValue > 0 ? "To receive" : "To transfer"
+      : ""
 
     return (
       <div className={classes.container}>
@@ -55,9 +65,10 @@ class FormRow extends Component {
         <TextField
           label="Difference"
           id="margin-dense"
+          disabled
           className={classes.textField}
-          helperText="Difference"
-          value={newAmountValue}
+          helperText={differenceHelper}
+          value={differenceValue}
           margin="dense"
         />
         <TextField
@@ -68,7 +79,7 @@ class FormRow extends Component {
           helperText={
             "To fit " + categorySettings[category].desired * 100 + " %"
           }
-          value={newAmountValue}
+          value={!isNaN(newAmountValue) ? newAmountValue.toFixed(2) : "-"}
           margin="normal"
         />
       </div>

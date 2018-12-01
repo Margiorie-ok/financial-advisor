@@ -7,7 +7,7 @@ class App extends Component {
     this.state = {}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchIdealPortfolio()
   }
 

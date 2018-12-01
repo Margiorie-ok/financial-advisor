@@ -25,32 +25,34 @@ const AppNavBar = props => {
             <IdealPortfolioIcon className={classes.extendedIcon} />
             Ideal
           </Button>
-          {pathname === "/ideal-portfolio" && riskPreference ? (
-            <Button
-              color="inherit"
-              onClick={() => switchPieChart()}
-              variant="outlined"
-              className={classes.button}
-            >
-              {showPieChart ? (
-                <TableIcon className={classes.extendedIcon} />
-              ) : (
-                <PieChartIcon className={classes.extendedIcon} />
-              )}
-              {showPieChart ? "All Settings" : "PieChart"}
-            </Button>
-          ) : null}
-
-          <Button
-            color="inherit"
-            component={Link}
-            to="/personalized-portfolio"
-            variant="outlined"
-            className={classes.button}
-          >
-            <PersonalizedPortfolioIcon className={classes.extendedIcon} />
-            Personalized
-          </Button>
+          {pathname.match(/^(\/ideal-portfolio|\/)$/) &&
+            riskPreference && (
+              <React.Fragment>
+                <Button
+                  color="inherit"
+                  onClick={() => switchPieChart()}
+                  variant="outlined"
+                  className={classes.button}
+                >
+                  {showPieChart ? (
+                    <TableIcon className={classes.extendedIcon} />
+                  ) : (
+                    <PieChartIcon className={classes.extendedIcon} />
+                  )}
+                  {showPieChart ? "All Settings" : "PieChart"}
+                </Button>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/personalized-portfolio"
+                  variant="outlined"
+                  className={classes.button}
+                >
+                  <PersonalizedPortfolioIcon className={classes.extendedIcon} />
+                  Personalized
+                </Button>
+              </React.Fragment>
+            )}
         </Toolbar>
       </AppBar>
     </div>
