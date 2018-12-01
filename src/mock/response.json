@@ -1,0 +1,380 @@
+{
+  "entities": {
+    "investmentCategories": {
+      "byId": {
+        "a09jkl": {
+          "name": "Bonds"
+        },
+        "b23j87": {
+          "name": "Large Cap"
+        },
+        "h482h7": {
+          "name": "Mid Cap"
+        },
+        "ou8rg5": {
+          "name": "Foreign"
+        },
+        "asd765": {
+          "name": "Small Cap"
+        }
+      },
+      "allIds": ["a09jkl", "b23j87", "h482h7", "ou8rg5", "asd765"]
+    },
+    "investmentSettings": {
+      "byId": {
+        "is0101": {
+          "id": "is0101",
+          "investment_category": "a09jkl",
+          "riskPreference": 1,
+          "proportion": 0.8
+        },
+        "is0102": {
+          "id": "is0102",
+          "riskPreference": 1,
+          "investment_category": "b23j87",
+          "proportion": 0.2
+        },
+        "is0103": {
+          "id": "is0103",
+          "riskPreference": 1,
+          "investment_category": "h482h7",
+          "proportion": 0
+        },
+        "is0104": {
+          "id": "is0104",
+          "riskPreference": 1,
+          "investment_category": "ou8rg5",
+          "proportion": 0
+        },
+        "is0105": {
+          "id": "is0105",
+          "riskPreference": 1,
+          "investment_category": "asd765",
+          "proportion": 0
+        },
+        "is0201": {
+          "id": "is0201",
+          "investment_category": "a09jkl",
+          "riskPreference": 2,
+          "proportion": 0.7
+        },
+        "is0202": {
+          "id": "is0202",
+          "riskPreference": 2,
+          "investment_category": "b23j87",
+          "proportion": 0.15
+        },
+        "is0203": {
+          "id": "is0203",
+          "riskPreference": 2,
+          "investment_category": "h482h7",
+          "proportion": 0.15
+        },
+        "is0204": {
+          "id": "is0204",
+          "riskPreference": 2,
+          "investment_category": "ou8rg5",
+          "proportion": 0
+        },
+        "is0205": {
+          "id": "is0205",
+          "riskPreference": 2,
+          "investment_category": "asd765",
+          "proportion": 0
+        },
+        "is0301": {
+          "id": "is0301",
+          "investment_category": "a09jkl",
+          "riskPreference": 3,
+          "proportion": 0.6
+        },
+        "is0302": {
+          "id": "is0302",
+          "riskPreference": 3,
+          "investment_category": "b23j87",
+          "proportion": 0.15
+        },
+        "is0303": {
+          "id": "is0303",
+          "riskPreference": 3,
+          "investment_category": "h482h7",
+          "proportion": 0.15
+        },
+        "is0304": {
+          "id": "is0304",
+          "riskPreference": 3,
+          "investment_category": "ou8rg5",
+          "proportion": 0.1
+        },
+        "is0305": {
+          "id": "is0305",
+          "riskPreference": 3,
+          "investment_category": "asd765",
+          "proportion": 0
+        },
+        "is0401": {
+          "id": "is0401",
+          "investment_category": "a09jkl",
+          "riskPreference": 4,
+          "proportion": 0.5
+        },
+        "is0402": {
+          "id": "is0402",
+          "riskPreference": 4,
+          "investment_category": "b23j87",
+          "proportion": 0.2
+        },
+        "is0403": {
+          "id": "is0403",
+          "riskPreference": 4,
+          "investment_category": "h482h7",
+          "proportion": 0.2
+        },
+        "is0404": {
+          "id": "is0404",
+          "riskPreference": 4,
+          "investment_category": "ou8rg5",
+          "proportion": 0.1
+        },
+        "is0405": {
+          "id": "is0405",
+          "riskPreference": 4,
+          "investment_category": "asd765",
+          "proportion": 0
+        },
+        "is0501": {
+          "id": "is0501",
+          "investment_category": "a09jkl",
+          "riskPreference": 5,
+          "proportion": 0.4
+        },
+        "is0502": {
+          "id": "is0502",
+          "riskPreference": 5,
+          "investment_category": "b23j87",
+          "proportion": 0.2
+        },
+        "is0503": {
+          "id": "is0503",
+          "riskPreference": 5,
+          "investment_category": "h482h7",
+          "proportion": 0.2
+        },
+        "is0504": {
+          "id": "is0504",
+          "riskPreference": 5,
+          "investment_category": "ou8rg5",
+          "proportion": 0.2
+        },
+        "is0505": {
+          "id": "is0505",
+          "riskPreference": 5,
+          "investment_category": "asd765",
+          "proportion": 0
+        },
+        "is0601": {
+          "id": "is0601",
+          "investment_category": "a09jkl",
+          "riskPreference": 6,
+          "proportion": 0.35
+        },
+        "is0602": {
+          "id": "is0602",
+          "riskPreference": 6,
+          "investment_category": "b23j87",
+          "proportion": 0.25
+        },
+        "is0603": {
+          "id": "is0603",
+          "riskPreference": 6,
+          "investment_category": "h482h7",
+          "proportion": 0.05
+        },
+        "is0604": {
+          "id": "is0604",
+          "riskPreference": 6,
+          "investment_category": "ou8rg5",
+          "proportion": 0.3
+        },
+        "is0605": {
+          "id": "is0605",
+          "riskPreference": 6,
+          "investment_category": "asd765",
+          "proportion": 0.05
+        },
+        "is0701": {
+          "id": "is0701",
+          "investment_category": "a09jkl",
+          "riskPreference": 7,
+          "proportion": 0.2
+        },
+        "is0702": {
+          "id": "is0702",
+          "riskPreference": 7,
+          "investment_category": "b23j87",
+          "proportion": 0.25
+        },
+        "is0703": {
+          "id": "is0703",
+          "riskPreference": 7,
+          "investment_category": "h482h7",
+          "proportion": 0.25
+        },
+        "is0704": {
+          "id": "is0704",
+          "riskPreference": 7,
+          "investment_category": "ou8rg5",
+          "proportion": 0.25
+        },
+        "is0705": {
+          "id": "is0705",
+          "riskPreference": 7,
+          "investment_category": "asd765",
+          "proportion": 0.05
+        },
+        "is0801": {
+          "id": "is0801",
+          "investment_category": "a09jkl",
+          "riskPreference": 8,
+          "proportion": 0.1
+        },
+        "is0802": {
+          "id": "is0802",
+          "riskPreference": 8,
+          "investment_category": "b23j87",
+          "proportion": 0.2
+        },
+        "is0803": {
+          "id": "is0803",
+          "riskPreference": 8,
+          "investment_category": "h482h7",
+          "proportion": 0.4
+        },
+        "is0804": {
+          "id": "is0804",
+          "riskPreference": 8,
+          "investment_category": "ou8rg5",
+          "proportion": 0.2
+        },
+        "is0805": {
+          "id": "is0805",
+          "riskPreference": 8,
+          "investment_category": "asd765",
+          "proportion": 0.1
+        },
+        "is0901": {
+          "id": "is0901",
+          "investment_category": "a09jkl",
+          "riskPreference": 9,
+          "proportion": 0.05
+        },
+        "is0902": {
+          "id": "is0902",
+          "riskPreference": 9,
+          "investment_category": "b23j87",
+          "proportion": 0.15
+        },
+        "is0903": {
+          "id": "is0903",
+          "riskPreference": 9,
+          "investment_category": "h482h7",
+          "proportion": 0.4
+        },
+        "is0904": {
+          "id": "is0904",
+          "riskPreference": 9,
+          "investment_category": "ou8rg5",
+          "proportion": 0.25
+        },
+        "is0905": {
+          "id": "is0905",
+          "riskPreference": 9,
+          "investment_category": "asd765",
+          "proportion": 0.15
+        },
+        "is1001": {
+          "id": "is1001",
+          "investment_category": "a09jkl",
+          "riskPreference": 10,
+          "proportion": 0
+        },
+        "is1002": {
+          "id": "is1002",
+          "riskPreference": 10,
+          "investment_category": "b23j87",
+          "proportion": 0.05
+        },
+        "is1003": {
+          "id": "is1003",
+          "riskPreference": 10,
+          "investment_category": "h482h7",
+          "proportion": 0.25
+        },
+        "is1004": {
+          "id": "is1004",
+          "riskPreference": 10,
+          "investment_category": "ou8rg5",
+          "proportion": 0.3
+        },
+        "is1005": {
+          "id": "is1005",
+          "riskPreference": 10,
+          "investment_category": "asd765",
+          "proportion": 0.4
+        }
+      },
+      "allIds": [
+        "is0101",
+        "is0102",
+        "is0103",
+        "is0104",
+        "is0105",
+        "is0201",
+        "is0202",
+        "is0203",
+        "is0204",
+        "is0205",
+        "is0301",
+        "is0302",
+        "is0303",
+        "is0304",
+        "is0305",
+        "is0401",
+        "is0402",
+        "is0403",
+        "is0404",
+        "is0405",
+        "is0501",
+        "is0502",
+        "is0503",
+        "is0504",
+        "is0505",
+        "is0601",
+        "is0602",
+        "is0603",
+        "is0604",
+        "is0605",
+        "is0701",
+        "is0702",
+        "is0703",
+        "is0704",
+        "is0705",
+        "is0801",
+        "is0802",
+        "is0803",
+        "is0804",
+        "is0805",
+        "is0901",
+        "is0902",
+        "is0903",
+        "is0904",
+        "is0905",
+        "is1001",
+        "is1002",
+        "is1003",
+        "is1004",
+        "is1005"
+      ]
+    }
+  }
+}
