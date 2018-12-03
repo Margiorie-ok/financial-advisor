@@ -14,3 +14,6 @@ These instructions will get you a copy of the project up and running on your loc
 #### `Installation`
 1. Clone this repository, following [this instructions](https://help.github.com/articles/cloning-a-repository/)
 2. Using te terminal, from the project folder run `npm install` an then `npm start`
+
+#### `Sample run`
+[Download sample-run.mov](https://github.com/Margiorie-ok/financial-advisor/blob/sample-run/financial-advisor-run.mov)
