@@ -16,4 +16,4 @@ These instructions will get you a copy of the project up and running on your loc
 2. Using te terminal, from the project folder run `npm install` an then `npm start`
 
 #### `Sample run`
-Download [sample-run.mov](https://github.com/Margiorie-ok/financial-advisor/raw/sample-run/financial-advisor-run.mov)
+Download [sample-run.mov](https://github.com/Margiorie-ok/financial-advisor/raw/sample-run/financial-advisor-run.mov) to see the application running
