@@ -2,6 +2,23 @@ import React, { Component } from "react"
 import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography"
 
+const permutate = array => {
+  let permutations = []
+
+  for (let i = 0; i < array.length; i = i + 1) {
+    let remaining = permutate(array.slice(0, i).concat(array.slice(i + 1)))
+
+    if (!remaining.length) {
+      permutations.push([array[i]])
+    } else {
+      for (let j = 0; j < remaining.length; j = j + 1) {
+        permutations.push([array[i]].concat(remaining[j]))
+      }
+    }
+  }
+  return permutations
+}
+
 const sortCategorySettings = (categorySettings, givers, receivers) => {
   for (let i = 0; i < Object.keys(categorySettings).length; i++) {
     const setting = categorySettings[Object.keys(categorySettings)[i]]
@@ -74,90 +91,30 @@ const balanceLog = ({ giversArray, receiversArray, totalAmount }) => {
   return fullLog
 }
 
-const ascendingCharge = (a, b) => {
-  if (a.charge < b.charge) return -1
-  if (a.charge > b.charge) return 1
-  return 0
-}
-
-const descendingCharge = (b, a) => {
-  if (a.charge < b.charge) return -1
-  if (a.charge > b.charge) return 1
-  return 0
-}
-
 const ascendingSteps = (a, b) => {
   if (a.steps.length < b.steps.length) return -1
   if (a.steps.length > b.steps.length) return 1
   return 0
 }
 
-const runCriterias = (totalAmount, givers, receivers) => {
-  let criterias = []
-  criterias = [
-    ...criterias,
-    {
-      name: "random",
-      steps: balanceLog({
-        giversArray: JSON.parse(JSON.stringify(givers)),
-        receiversArray: JSON.parse(JSON.stringify(receivers)),
-        totalAmount: totalAmount
-      })
+const runPermutations = (totalAmount, giversPerms, receiversPerms) => {
+  let permutations = []
+  for (let i = 0; i < giversPerms.length; i++) {
+    for (let j = 0; j < receiversPerms.length; j++) {
+      permutations = [
+        ...permutations,
+        {
+          name: "i: " + i + ", j:" + j,
+          steps: balanceLog({
+            giversArray: JSON.parse(JSON.stringify(giversPerms[i])),
+            receiversArray: JSON.parse(JSON.stringify(receiversPerms[j])),
+            totalAmount: totalAmount
+          })
+        }
+      ]
     }
-  ]
-  givers.sort(ascendingCharge)
-  givers.sort(ascendingCharge)
-  criterias = [
-    ...criterias,
-    {
-      name: "both ascending",
-      steps: balanceLog({
-        giversArray: JSON.parse(JSON.stringify(givers)),
-        receiversArray: JSON.parse(JSON.stringify(receivers)),
-        totalAmount: totalAmount
-      })
-    }
-  ]
-  givers.sort(descendingCharge)
-  givers.sort(descendingCharge)
-  criterias = [
-    ...criterias,
-    {
-      name: "both descending",
-      steps: balanceLog({
-        giversArray: JSON.parse(JSON.stringify(givers)),
-        receiversArray: JSON.parse(JSON.stringify(receivers)),
-        totalAmount: totalAmount
-      })
-    }
-  ]
-  givers.sort(ascendingCharge)
-  criterias = [
-    ...criterias,
-    {
-      name: "ascending givers, descending receivers",
-      steps: balanceLog({
-        giversArray: JSON.parse(JSON.stringify(givers)),
-        receiversArray: JSON.parse(JSON.stringify(receivers)),
-        totalAmount: totalAmount
-      })
-    }
-  ]
-
-  givers.sort(descendingCharge)
-  receivers.sort(ascendingCharge)
-  criterias = [
-    ...criterias,
-    {
-      name: "descending givers, ascending receivers",
-      steps: balanceLog({
-        giversArray: JSON.parse(JSON.stringify(givers)),
-        receiversArray: JSON.parse(JSON.stringify(receivers)),
-        totalAmount: totalAmount
-      })
-    }
-  ]
-  return criterias
+  }
+  return permutations
 }
 
 class Calculator extends Component {
@@ -175,12 +132,17 @@ class Calculator extends Component {
     const receivers = []
     const givers = []
     sortCategorySettings(categorySettings, givers, receivers)
-    const criterias = runCriterias(totalAmount, givers, receivers)
-    criterias.sort(ascendingSteps)
+
+    const permutations = runPermutations(
+      totalAmount,
+      permutate(givers),
+      permutate(receivers)
+    )
+    permutations.sort(ascendingSteps)
 
     this.setState({
-      criterias: criterias,
-      stepsLog: criterias[0].steps
+      permutations: permutations,
+      stepsLog: permutations[0].steps
     })
   }
 
