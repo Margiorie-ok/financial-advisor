@@ -1,5 +1,4 @@
 const initialState = {
-  riskPreference: null,
   investmentCategoryIds: [],
   categorySettings: {}
 }
@@ -8,8 +7,6 @@ const personalizedPortfolioReducers = (state = initialState, action) => {
   switch (action.type) {
     case "SET_INVESTMENT_CATEGORIES":
       return { ...state, categorySettings: action.payload.byId }
-    case "SET_RISK_PREFERENCE":
-      return { ...state, riskPreference: action.riskPreference }
     case "ADD_INVESTMENT_INPUT":
       return {
         ...state,

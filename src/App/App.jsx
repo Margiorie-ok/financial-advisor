@@ -16,11 +16,7 @@ class App extends Component {
   }
 
   app = () => {
-    return (
-      <React.Fragment>
-        <AppRouter />
-      </React.Fragment>
-    )
+    return <AppRouter />
   }
 
   render() {

@@ -1,5 +1,10 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom"
 import PersonalizedPortfolio from "./dashboard/PersonalizedPortfolio"
 import IdealPortfolio from "./dashboard/IdealPortfolio"
 import AppNavBar from "./AppNavBar"
@@ -15,7 +20,7 @@ const AppRouter = () => (
           path="/personalized-portfolio"
           component={PersonalizedPortfolio}
         />
-        <Route component={IdealPortfolio} />
+        <Route render={routeProps => <Redirect to={"/ideal-portfolio/"} />} />
       </Switch>
     </React.Fragment>
   </Router>

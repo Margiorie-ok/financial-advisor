@@ -1,64 +1,56 @@
 import { ResponsiveTable } from "../../common/dataDisplay/ResponsiveTable/ResponsiveTable"
-import React, { Component } from "react"
+import React from "react"
 import { sortByProperty } from "../../../../redux/utils/dataUtils"
-
-class ProportionsTable extends Component {
-  labels = () => {
-    const { investmentCategories, investmentCategoriesIds } = this.props
-    let labels = ["Risk"]
-    for (let i = 0; i < investmentCategoriesIds.length; i++) {
-      labels = [
-        ...labels,
-        investmentCategories[investmentCategoriesIds[i]].name + " %"
-      ]
-    }
-    return labels
+const labels = props => {
+  const { investmentCategories, investmentCategoriesIds } = props
+  let labels = ["Risk"]
+  for (let i = 0; i < investmentCategoriesIds.length; i++) {
+    labels = [
+      ...labels,
+      investmentCategories[investmentCategoriesIds[i]].name + " %"
+    ]
   }
+  return labels
+}
 
-  generateRow = (i, risks) => {
-    const {
-      investmentCategoriesIds,
-      investmentSettingsByRiskPreference
-    } = this.props
-    let newRow = [Object.keys(investmentSettingsByRiskPreference)[i]]
-    const investmentSettingsByCategories = sortByProperty({
-      data: investmentSettingsByRiskPreference[risks[i]],
-      property: "investment_category"
-    })
+const generateRow = (props, i, risks) => {
+  const { investmentCategoriesIds, investmentSettingsByRiskPreference } = props
+  let newRow = [Object.keys(investmentSettingsByRiskPreference)[i]]
+  const investmentSettingsByCategories = sortByProperty({
+    data: investmentSettingsByRiskPreference[risks[i]],
+    property: "investment_category"
+  })
 
-    for (let j = 0; j < investmentCategoriesIds.length; j++) {
-      let settingObject =
-        investmentSettingsByCategories[investmentCategoriesIds[j]]
-      settingObject = settingObject[Object.keys(settingObject)[0]]
-      newRow = [...newRow, settingObject.proportion * 100]
-    }
-    return newRow
+  for (let j = 0; j < investmentCategoriesIds.length; j++) {
+    let settingObject =
+      investmentSettingsByCategories[investmentCategoriesIds[j]]
+    settingObject = settingObject[Object.keys(settingObject)[0]]
+    newRow = [...newRow, settingObject.proportion * 100]
   }
+  return newRow
+}
 
-  rows = () => {
-    const { investmentSettingsByRiskPreference } = this.props
-    let rows = []
-    const risks = Object.keys(investmentSettingsByRiskPreference)
-    for (let i = 0; i < risks.length; i++) {
-      rows = [...rows, this.generateRow(i, risks)]
-    }
-    return rows
+const rows = props => {
+  const { investmentSettingsByRiskPreference } = props
+  let rows = []
+  const risks = Object.keys(investmentSettingsByRiskPreference)
+  for (let i = 0; i < risks.length; i++) {
+    rows = [...rows, generateRow(props, i, risks)]
   }
-  render() {
-    const investmentSettingsByRisk = this.props
-      .investmentSettingsByRiskPreference
-    const { selected } = this.props
-    const selectedIndex = Object.keys(investmentSettingsByRisk).indexOf(
-      selected
-    )
-    return Object.keys(investmentSettingsByRisk).length > 0 ? (
-      <ResponsiveTable
-        labels={this.labels()}
-        rows={this.rows()}
-        selectedIndex={selectedIndex}
-      />
-    ) : null
-  }
+  return rows
+}
+
+const ProportionsTable = props => {
+  const investmentSettingsByRisk = props.investmentSettingsByRiskPreference
+  const { selected } = props
+  const selectedIndex = Object.keys(investmentSettingsByRisk).indexOf(selected)
+  return Object.keys(investmentSettingsByRisk).length > 0 ? (
+    <ResponsiveTable
+      labels={labels(props)}
+      rows={rows(props)}
+      selectedIndex={selectedIndex}
+    />
+  ) : null
 }
 
 export default ProportionsTable
