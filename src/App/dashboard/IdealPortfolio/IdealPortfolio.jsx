@@ -1,8 +1,6 @@
 import React, { Component } from "react"
 import AppContainer from "../common/layout/AppContainer"
-import { connect } from "react-redux"
 import Grid from "@material-ui/core/Grid"
-import { setRiskPreference as setRiskPreferenceAction } from "../../../redux/actions/idealPortfolioActions"
 import Fab from "@material-ui/core/Fab"
 import Typography from "@material-ui/core/Typography"
 import ProportionsTable from "./ProportionsTable/index"
@@ -60,20 +58,4 @@ class IdealPortfolio extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    possibleRisks:
-      Object.keys(state.idealPortfolio.investmentSettingsByRiskPreference)
-        .length > 0
-        ? Object.keys(state.idealPortfolio.investmentSettingsByRiskPreference)
-        : [],
-    riskPreference: state.idealPortfolio.riskPreference,
-    showPieChart: state.idealPortfolio.showPieChart
-  }
-}
-
-const mapDispatchToProps = {
-  setRiskPreference: setRiskPreferenceAction
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(IdealPortfolio)
+export default IdealPortfolio

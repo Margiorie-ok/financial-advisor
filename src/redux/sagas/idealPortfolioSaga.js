@@ -1,5 +1,5 @@
 import { delay } from "redux-saga"
-import { put, takeEvery, call } from "redux-saga/effects"
+import { put, takeLatest, call } from "redux-saga/effects"
 import { sortByProperty } from "../utils/dataUtils"
 const response = require("../../mock/response.json")
 
@@ -24,5 +24,5 @@ export function* fetchIdealPortfolio(action) {
 }
 
 export default function* idealPortfolioSaga() {
-  yield takeEvery("IDEAL_PORTFOLIO_FETCH_REQUESTED", fetchIdealPortfolio)
+  yield takeLatest("IDEAL_PORTFOLIO_FETCH_REQUESTED", fetchIdealPortfolio)
 }

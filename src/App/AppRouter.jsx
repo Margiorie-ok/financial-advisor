@@ -20,7 +20,7 @@ const AppRouter = () => (
           path="/personalized-portfolio"
           component={PersonalizedPortfolio}
         />
-        <Route render={routeProps => <Redirect to={"/ideal-portfolio/"} />} />
+        <Route render={routeProps => <Redirect to={"/ideal-portfolio"} />} />
       </Switch>
     </React.Fragment>
   </Router>

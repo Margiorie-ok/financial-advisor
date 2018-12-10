@@ -1,36 +1,10 @@
 import React, { Component } from "react"
-import { withRouter } from "react-router"
 import AppContainer from "../common/layout/AppContainer"
 import Grid from "@material-ui/core/Grid"
 import FormRow from "./FormRow"
-import { connect } from "react-redux"
-import {
-  setDesiredProportion as setDesiredProportionAction,
-  setCurrentAmount as setCurrentAmountAction,
-  setCurrentProportion as setCurrentProportionAction,
-  setTotalAmount as setTotalAmountAction
-} from "../../../redux/actions/personalizedPortfolioActions.js"
 import CalculatorIcon from "@material-ui/icons/LowPriority"
 import Button from "@material-ui/core/Button"
-import { compose } from "redux"
-import { withStyles } from "@material-ui/core/styles"
 import Calculator from "./Calculator"
-import "./style.css"
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit
-  },
-  iconSmall: {
-    fontSize: 20
-  }
-})
 
 class PersonalizedPortfolio extends Component {
   constructor(props) {
@@ -42,7 +16,6 @@ class PersonalizedPortfolio extends Component {
       riskPreference,
       preferences,
       setDesiredProportion,
-      setCurrentAmount,
       history
     } = this.props
     if (!riskPreference) {
@@ -54,10 +27,6 @@ class PersonalizedPortfolio extends Component {
           preference.investment_category,
           preference.proportion
         )
-        // setCurrentAmount(
-        //   preference.investment_category,
-        //   preference.amount ? Number(preference.amount).toFixed(2) : 0
-        // )
       }
     }
   }
@@ -81,12 +50,12 @@ class PersonalizedPortfolio extends Component {
       for (let i = 0; i < Object.keys(categorySettings).length; i++) {
         const setting = categorySettings[Object.keys(categorySettings)[i]]
         let amount = typeof setting.amount !== "undefined" ? setting.amount : 0
-        const desiredProportion = Number(
+        const currentProportion = Number(
           Number(amount / totalAmount).toFixed(2)
         )
         this.props.setCurrentProportion(
           Object.keys(categorySettings)[i],
-          desiredProportion
+          currentProportion
         )
       }
     }
@@ -115,7 +84,7 @@ class PersonalizedPortfolio extends Component {
   }
 
   render() {
-    const { categorySettings, key, classes } = this.props
+    const { classes } = this.props
     return (
       <AppContainer>
         <Grid item xs={12}>
@@ -140,26 +109,4 @@ class PersonalizedPortfolio extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    riskPreference: state.idealPortfolio.riskPreference,
-    preferences:
-      state.idealPortfolio.investmentSettingsByRiskPreference[
-        state.idealPortfolio.riskPreference
-      ],
-    categorySettings: state.personalizedPortfolio.categorySettings,
-    totalAmount: state.personalizedPortfolio.totalAmount
-  }
-}
-
-const mapDispatchToProps = {
-  setDesiredProportion: setDesiredProportionAction,
-  setCurrentAmount: setCurrentAmountAction,
-  setCurrentProportion: setCurrentProportionAction,
-  setTotalAmount: setTotalAmountAction
-}
-export default compose(
-  withRouter,
-  withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
-)(PersonalizedPortfolio)
+export default PersonalizedPortfolio

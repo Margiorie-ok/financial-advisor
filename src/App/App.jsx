@@ -2,11 +2,6 @@ import React, { Component } from "react"
 import LinearProgress from "@material-ui/core/LinearProgress"
 import AppRouter from "./AppRouter"
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   componentDidMount() {
     this.props.fetchIdealPortfolio()
   }

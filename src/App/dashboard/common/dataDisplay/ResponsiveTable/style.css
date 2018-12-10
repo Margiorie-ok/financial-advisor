@@ -9,29 +9,34 @@ table.table {
   text-align: center;
 }
 
-.table tr {
-  border-bottom: 1px solid #ddd;
-}
-
 .table tr:hover td,
 .selected {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
 }
 
+.table-responsive-label {
+  display: none;
+}
 
 @media screen and (max-width: 800px) {
+  .labels {
+    display: none;
+  }
+  .table-responsive-label {
+    display: block;
+  }
+  tr {
+    border: 1px solid #2196f3;
+  }
   tr {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin: 0.5em 0;
-    border: 1px solid black;
   }
-
   td,
   th {
     flex: 1 1 150px;
-    border: 0.5px solid black;
   }
 }

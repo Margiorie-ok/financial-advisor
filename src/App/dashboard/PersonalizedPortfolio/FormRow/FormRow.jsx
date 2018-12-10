@@ -1,23 +1,6 @@
 import React from "react"
 import { Component } from "react"
 import TextField from "@material-ui/core/TextField"
-import { withStyles } from "@material-ui/core/styles"
-import { connect } from "react-redux"
-import { compose } from "redux"
-
-const styles = theme => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-    paddingLeft: "auto",
-    paddingRight: "auto"
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200
-  }
-})
 
 class FormRow extends Component {
   constructor(props) {
@@ -53,11 +36,11 @@ class FormRow extends Component {
       : ""
 
     return (
-      <div className={classes.container}>
+      <div>
         <TextField
           label={name + " ($)"}
           id="margin-none"
-          className={classes.textField}
+          className={classes.margin}
           helperText="Current Amount"
           onChange={this.onCategoryValueChange}
           defaultValue={amountValue}
@@ -66,7 +49,7 @@ class FormRow extends Component {
           label="Difference"
           id="margin-dense"
           disabled
-          className={classes.textField}
+          className={classes.margin}
           helperText={differenceHelper}
           value={differenceValue}
           margin="dense"
@@ -75,7 +58,7 @@ class FormRow extends Component {
           label="New Amount"
           disabled
           id="margin-normal"
-          className={classes.textField}
+          className={classes.margin}
           helperText={
             "To fit " + categorySettings[category].desired * 100 + " %"
           }
@@ -87,10 +70,4 @@ class FormRow extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    categorySettings: state.personalizedPortfolio.categorySettings
-  }
-}
-
-export default compose(withStyles(styles), connect(mapStateToProps))(FormRow)
+export default FormRow
